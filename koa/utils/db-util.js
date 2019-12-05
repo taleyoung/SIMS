@@ -4,7 +4,7 @@ const pool = mysql.createPool({
   host: "127.0.0.1",
   user: "root",
   password: "taleyoung",
-  database: "blog"
+  database: "sims"
 });
 
 let query = function(sql, values) {

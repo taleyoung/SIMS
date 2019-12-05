@@ -1,7 +1,19 @@
 import Router from "koa-router";
-const router = new Router({ prefix: "/api/v1" });
-import articleRouter from "./article";
+const router = new Router({ prefix: "/api" });
+import ArticleController from "../controllers/article";
+import UserController from "../controllers/user";
 
-router.use(articleRouter.routes()).use(articleRouter.allowedMethods());
+//登录模块
+const user = "/user";
+router.post(`${user}/login`, UserController.login);
+
+//文章模块
+const article = "/article";
+router.get("/article/:id?", ArticleController.show);
+router.post(`${article}/`, ArticleController.add);
+router.delete(`${article}/:id`, ArticleController.delete);
+router.put(`${article}/:id`, ArticleController.update);
+
+// router.use(router.routes()).use(router.allowedMethods());
 
 export default router;
