@@ -15,6 +15,28 @@ public class Student {
     private String sex;
     private String account;
     private String password;
+    private String sdept;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", sdept='" + sdept + '\'' +
+                '}';
+    }
+
+    public String getSdept() {
+        return sdept;
+    }
+
+    public void setSdept(String sdept) {
+        this.sdept = sdept;
+    }
 
     public String getAccount() {
         return account;
@@ -30,18 +52,6 @@ public class Student {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", sex='" + sex + '\'' +
-                ", account='" + account + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 
     public Student() {
