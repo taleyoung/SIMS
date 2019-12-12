@@ -1,16 +1,10 @@
 package com.example.student.Request;
 
+/**
+ * 查看选课信息
+ * */
 public class ScRequest {
     private String account;
-    private Integer page;
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
 
     public String getAccount() {
         return account;

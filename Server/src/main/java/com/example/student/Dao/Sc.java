@@ -13,23 +13,38 @@ public class Sc {
     @Id
     @GeneratedValue
     private Integer id;
+
     private String account;
-    private String name;
+    private String sname;
     private Integer cno;
     private String cname;
     private double grade;
+    private String sdept;
+    private String tname;
 
     @Override
     public String toString() {
         return "Sc{" +
                 "id=" + id +
                 ", account='" + account + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + sname + '\'' +
                 ", cno=" + cno +
                 ", cname='" + cname + '\'' +
                 ", grade=" + grade +
                 ", sdept='" + sdept + '\'' +
+                ", teacher='" + tname + '\'' +
                 '}';
+    }
+
+    public Sc() {
+    }
+
+    public String getTname() {
+        return tname;
+    }
+
+    public void setTname(String tname) {
+        this.tname = tname;
     }
 
     public double getGrade() {
@@ -38,11 +53,6 @@ public class Sc {
 
     public void setGrade(double grade) {
         this.grade = grade;
-    }
-
-    private String sdept;
-
-    public Sc() {
     }
 
     public Integer getId() {
@@ -61,12 +71,12 @@ public class Sc {
         this.account = account;
     }
 
-    public String getName() {
-        return name;
+    public String getSname() {
+        return sname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSname(String name) {
+        this.sname = name;
     }
 
     public Integer getCno() {
