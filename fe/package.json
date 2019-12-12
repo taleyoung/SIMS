@@ -58,6 +58,7 @@
     "react-redux": "^5.1.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "swr": "^0.1.13"
   }
 }

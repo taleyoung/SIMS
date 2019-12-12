@@ -1,7 +1,7 @@
 import React, { ReactNode, SFC } from "react";
 import Header from "./Header";
 import Sider from "./SiderBar";
-import Breadcrumb from "./Breadcrumb";
+import Breadcrumb from "../Breadcrumb";
 
 import { Layout } from "antd";
 
@@ -16,7 +16,7 @@ const AppLayout: SFC<Props> = ({ children }) => {
     <Layout>
       <Header></Header>
       <Content style={{ padding: "0 50px" }}>
-        <Breadcrumb></Breadcrumb>
+        <Breadcrumb titles={["全局"]}></Breadcrumb>
         <Layout style={{ padding: "24px 0", background: "#fff" }}>
           <Sider></Sider>
           <Content style={{ padding: "0 24px", minHeight: 280 }}>

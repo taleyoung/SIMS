@@ -1,5 +1,6 @@
 import React, { SFC } from "react";
 import { Layout, Menu, Icon } from "antd";
+import { Link } from "react-router-dom";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -19,24 +20,33 @@ const SiderBar: SFC = () => {
             title={
               <span>
                 <Icon type="user" />
-                成绩管理
+                学生系统
               </span>
             }
           >
-            <Menu.Item key="1">成绩概览</Menu.Item>
-            <Menu.Item key="2">成绩查询</Menu.Item>
+            <Menu.Item key="1">
+              <Link to="/student/course">已选课程</Link>
+            </Menu.Item>
+
+            <Menu.Item key="2">
+              <Link to="/student/course">新建选课</Link>
+            </Menu.Item>
+
+            <Menu.Item key="3">个人信息修改</Menu.Item>
           </SubMenu>
           <SubMenu
             key="sub2"
             title={
               <span>
                 <Icon type="laptop" />
-                学生管理
+                教师系统
               </span>
             }
           >
-            <Menu.Item key="5">学生列表</Menu.Item>
-            <Menu.Item key="6">学生管理</Menu.Item>
+            <Menu.Item key="5">
+              <Link to="/teacher/stulist">学生列表</Link>
+            </Menu.Item>
+            <Menu.Item key="6">个人信息修改</Menu.Item>
           </SubMenu>
         </Menu>
       </Sider>
