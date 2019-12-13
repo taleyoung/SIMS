@@ -4,9 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface CourseDao extends JpaRepository<Course,Integer> {
     Course findByCno(Integer cno);
-    Course findByTname(String tname);
+    List<Course> findAllByTid(int tid);
     /**
      * 显示出该页所有的课程
      * */

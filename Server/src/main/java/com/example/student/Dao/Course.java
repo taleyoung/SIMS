@@ -11,14 +11,14 @@ public class Course {
     @GeneratedValue
     private Integer cno;
     private String cname;
-    private String tname;
+    private int tid;
 
     @Override
     public String toString() {
         return "Course{" +
                 "cno=" + cno +
                 ", cname='" + cname + '\'' +
-                ", tname='" + tname + '\'' +
+                ", tid=" + tid +
                 '}';
     }
 
@@ -38,12 +38,12 @@ public class Course {
         this.cname = cname;
     }
 
-    public String getTname() {
-        return tname;
+    public int getTid() {
+        return tid;
     }
 
-    public void setTname(String tname) {
-        this.tname = tname;
+    public void setTid(int tid) {
+        this.tid = tid;
     }
 
     public Course() {

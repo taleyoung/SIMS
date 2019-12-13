@@ -4,12 +4,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 
 
 public interface ScDao extends JpaRepository<Sc,Integer> {
-    //List<Sc> findAllByCnoAndTname(Integer cno, String tname);
-    Page<Sc> findAllByCnoAndTname(Integer cno, String tname,Pageable pageable);
-    Page<Sc> findAllByAccount(String account,Pageable pageable);
-    //List<Sc> findAllByAccount(String sname);
+    List<Sc> findAllByCno(Integer cno);
+    //Page<Sc> findAllByAccount(String account,Pageable pageable);
+    List<Sc> findAllByAccount(String account);
     Sc findByCnoAndAccount(int cno,String account);
 }
