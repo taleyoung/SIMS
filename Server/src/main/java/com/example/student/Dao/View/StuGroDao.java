@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface StuGroDao extends JpaRepository<StuGro,String> {
 
-    Page<StuGro> findAllBy(Pageable pageable);
+    Page<StuGro> findAll(Pageable pageable);
 }
