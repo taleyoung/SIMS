@@ -20,6 +20,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/student")
+@CrossOrigin(origins = "*")
+
 public class StudentController {
 
     @Autowired
