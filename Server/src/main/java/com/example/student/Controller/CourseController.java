@@ -1,8 +1,7 @@
 package com.example.student.Controller;
 
-import com.example.student.Dao.Course;
-import com.example.student.Dao.CourseDao;
-import com.example.student.Dao.ScDao;
+import com.example.student.Dao.*;
+import com.example.student.Request.TeacherUpdateGrade;
 import com.example.student.VO.ListInfo;
 import com.example.student.VO.Result;
 import com.example.student.senum.ResultCode;
@@ -13,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/course")
 public class CourseController {
 
@@ -22,6 +22,8 @@ public class CourseController {
     @Autowired
     private CourseDao courseDao;
 
+    @Autowired
+    private StudentDao studentDao;
     /**
      * 显示当前的所有课程
      * */
@@ -37,6 +39,30 @@ public class CourseController {
                 pageNum,
                 pages.getContent());
         return new Result(ResultCode.SUCCESS,listInfo);
+    }
+
+
+    /**
+     * 修改学生分数
+     * 课程号cno
+     * 学生id
+     * 学生分数
+     * */
+    @RequestMapping(value = "/grades/{cno}",method = RequestMethod.PUT)
+    public Result updateGrade(
+            @PathVariable String cno,
+            @RequestBody TeacherUpdateGrade[] updateGrades){
+        if(updateGrades == null){
+            return new Result(ResultCode.WARN);
+        }
+        //Course course = courseDao.findByCno(Integer.parseInt(cno));
+        for(int i = 0; i < updateGrades.length; i++){
+            Student student = studentDao.findById(updateGrades[i].getId()).orElse(null);
+            Sc sc = scDao.findByCnoAndAccount(Integer.parseInt(cno),student.getAccount());
+            sc.setGrade(updateGrades[i].getGrade());
+            scDao.save(sc);
+        }
+        return new Result(ResultCode.SUCCESS);
     }
 
 }

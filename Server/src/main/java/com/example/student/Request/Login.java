@@ -5,6 +5,15 @@ public class Login {
     private String password;
     private Integer choice;
 
+    @Override
+    public String toString() {
+        return "Login{" +
+                "account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", choice=" + choice +
+                '}';
+    }
+
     public String getAccount() {
         return account;
     }

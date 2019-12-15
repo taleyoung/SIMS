@@ -3,21 +3,17 @@ package com.example.student.Controller;
 import com.example.student.Dao.*;
 import com.example.student.Request.Information;
 import com.example.student.Request.TeacherCno;
-import com.example.student.Request.TeacherUpdateGrade;
-import com.example.student.VO.Result;
-import com.example.student.VO.Stulistdatainfo;
-import com.example.student.VO.TeaStulistInfo;
+import com.example.student.VO.*;
 import com.example.student.senum.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/teacher")
 public class TeacherController {
 
@@ -34,9 +30,9 @@ public class TeacherController {
 
     /**
      * 查看选修自己这门课的所有学生
-     * @Request cno
-     * @Request tname
-     * @Request pageNum
+     * cno
+     * pageNum
+     * pageSize
      */
     @RequestMapping(value = "/{id}/stulist",method = RequestMethod.GET)
     public Result findChooseAll(
@@ -45,18 +41,39 @@ public class TeacherController {
             @RequestParam int pageSize,
             @RequestBody TeacherCno teacherCno){
         int cno = teacherCno.getCno();
-        Teacher teacher = teacherDao.findById(Integer.parseInt(id)).orElse(null);
-        String tname = teacher.getName();
-        //List<Sc> scList = scDao.findAllByCnoAndTname(cno, tname);
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
-        Page<Sc> pages = scDao.findAllByCnoAndTname(cno, tname,pageable);
-        if(pages.isEmpty()){
-            return new Result(ResultCode.WARN);
+        List<Sc> list = scDao.findAllByCno(cno);
+        if(list.size()==0){
+            Result result = new Result(ResultCode.ERROR);
+            result.setMessage("暂无选课信息");
+            return result;
         }
-        TeaStulistInfo teaStulistInfo = new TeaStulistInfo(pages.getTotalElements(),
+        List<StuListInfo> listInfos = new ArrayList<>();
+        for(int i = pageNum*pageSize;i<Math.min((pageNum+1)*pageSize, list.size());i++){
+            StuListInfo stuListInfo = new StuListInfo();
+            Student student = studentDao.findByAccount(list.get(i).getAccount());
+            Teacher teacher = teacherDao.findById(Integer.parseInt(id)).orElse(null);
+            Course course = courseDao.findByCno(cno);
+
+            stuListInfo.setId(student.getId());
+            stuListInfo.setAccount(student.getAccount());
+            stuListInfo.setSname(student.getName());
+            stuListInfo.setCno(cno);
+            stuListInfo.setCname(course.getCname());
+            stuListInfo.setGrade(list.get(i).getGrade());
+            stuListInfo.setSdept(student.getSdept());
+            stuListInfo.setTname(teacher.getName());
+            //System.out.println(stuListInfo);
+            listInfos.add(stuListInfo);
+        }
+//        Pageable pageable = PageRequest.of(pageNum, pageSize);
+//        Page<Sc> pages = scDao.findAllByCno(cno,pageable);
+//        if(pages.isEmpty()){
+//            return new Result(ResultCode.WARN);
+//        }
+        TeaStulistInfo teaStulistInfo = new TeaStulistInfo(list.size(),
                                                            pageNum,
-                                                           pages.getContent());
-        System.out.println(teaStulistInfo);
+                                                           listInfos);
+        //System.out.println(teaStulistInfo);
         return new Result(ResultCode.SUCCESS,teaStulistInfo);
     }
 
@@ -85,24 +102,25 @@ public class TeacherController {
         return new Result(ResultCode.WARN);
     }
 
+
     /**
-     * 修改学生分数
+     * 老师查看自己教了哪几门课
      * */
-    @RequestMapping(value = "/{id}/grades",method = RequestMethod.PUT)
-    public Result updateGrade(
+    @RequestMapping(value = "/{id}/courses",method = RequestMethod.GET)
+    public Result myCourses(
             @PathVariable String id,
-            @RequestBody TeacherUpdateGrade[] updateGrades){
-        if(updateGrades == null){
-            return new Result(ResultCode.WARN);
+            @RequestParam int pageNum,
+            @RequestParam int pageSize){
+        List<Course> list = courseDao.findAllByTid(Integer.parseInt(id));
+        if(list.size() == 0){
+            Result result = new Result(ResultCode.WARN);
+            result.setMessage("暂无课程信息");
         }
-        for(int i = 0; i < updateGrades.length; i++){
-            Student student = studentDao.findById(updateGrades[i].getId()).orElse(null);
-            Teacher teacher = teacherDao.findById(Integer.parseInt(id)).orElse(null);
-            Course course = courseDao.findByTname(teacher.getName());
-            Sc sc = scDao.findByCnoAndAccount(course.getCno(),student.getAccount());
-            sc.setGrade(updateGrades[i].getGrade());
-            scDao.save(sc);
-        }
-        return new Result(ResultCode.SUCCESS);
+        ListInfo listInfo = new ListInfo(
+                list.size(),
+                pageNum,
+                list.subList((pageNum*pageSize), Math.min(list.size(), (pageNum+1)*pageSize)));
+        return new Result(ResultCode.SUCCESS,listInfo);
     }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/login")
 public class LoginController {
 
@@ -24,8 +25,10 @@ public class LoginController {
         String account = login.getAccount();
         String password = login.getPassword();
         Integer choice = login.getChoice();
+        System.out.println("login"+login);
         if (choice == 0) {
             Student student = studentDao.findByAccount(account);
+            System.out.println(student);
             if (student == null) {
                 return new Result(ResultCode.WARN);
             } else {
