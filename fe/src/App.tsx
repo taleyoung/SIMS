@@ -2,6 +2,7 @@ import React, { SFC } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./pages/home";
 import StuList from "./pages/teacher/stuList";
+import NewCourse from "./pages/student/newCourse";
 import CourseList from "./pages/student/courseList";
 
 import AppLayout from "./components/Layout";
@@ -13,6 +14,7 @@ const App: SFC = () => {
       <Route path="/app/home" component={Home}></Route>
       <Route path="/teacher/stulist" component={StuList}></Route>
       <Route path="/student/course" component={CourseList}></Route>
+      <Route path="/student/newcourse" component={NewCourse}></Route>
     </Switch>
   );
   return <AppLayout children={Routers}></AppLayout>;

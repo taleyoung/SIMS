@@ -29,7 +29,7 @@ const SiderBar: SFC = () => {
             </Menu.Item>
 
             <Menu.Item key="2">
-              <Link to="/student/course">新建选课</Link>
+              <Link to="/student/newcourse">新建选课</Link>
             </Menu.Item>
 
             <Menu.Item key="3">个人信息修改</Menu.Item>
