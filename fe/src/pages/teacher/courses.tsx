@@ -1,19 +1,18 @@
 import React, { FC, useState, useEffect } from "react";
 import { Table } from "antd";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import myApi from "../../utils/api";
 
-const StuList: FC = props => {
+const Courses: FC = () => {
   const [list, setList] = useState<Array<Object>>([]);
   const fetchList = async () => {
-    const res = await myApi(
-      "/teacher/1/stulist/?pageNum=0&pageSize=10",
-      "POST",
-      {
-        cno: 1
-      }
-    );
+    const res = await myApi("/teacher/1/courses?pageNum=0&pageSize=10", "GET", {
+      cno: 1
+    });
+
     const list = res.data.data.map((item: any) => ({
       ...item,
       key: `${item.id}${item.cno}`
@@ -24,17 +23,8 @@ const StuList: FC = props => {
   useEffect(() => {
     fetchList();
   }, []);
+
   const columns = [
-    {
-      title: "学号",
-      dataIndex: "account",
-      key: "account"
-    },
-    {
-      title: "姓名",
-      dataIndex: "sname",
-      key: "sname"
-    },
     {
       title: "课程号",
       key: "cno",
@@ -46,25 +36,27 @@ const StuList: FC = props => {
       dataIndex: "cname"
     },
     {
-      title: "成绩",
-      key: "grade",
-      dataIndex: "grade"
-    },
-    {
-      title: "任课老师",
-      key: "tname",
-      dataIndex: "tname"
+      title: "查看所选学生",
+      key: "handle",
+      dataIndex: "handle",
+      render: (text: string, record: any) => (
+        <Link to={`/teacher/${record.cno}/stulist`}>查看</Link>
+      )
     }
   ];
 
   return (
     <div>
-      <Breadcrumb titles={["学生管理", "所开课程", "学生列表"]}></Breadcrumb>
-      <div>
+      <Breadcrumb titles={["学生管理", "所开课程"]}></Breadcrumb>
+      <Wrapper>
         <Table columns={columns} dataSource={list} />
-      </div>
+      </Wrapper>
     </div>
   );
 };
 
-export default StuList;
+export default Courses;
+
+const Wrapper = styled.div`
+  width: 60%;
+`;

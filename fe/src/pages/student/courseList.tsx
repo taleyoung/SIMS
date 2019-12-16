@@ -1,23 +1,34 @@
 import React, { FC, useState, useEffect } from "react";
-import { Table } from "antd";
+import { Table, message } from "antd";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import myApi from "../../utils/api";
 
 const CourseList: FC = () => {
   const [list, setList] = useState<Array<Object>>([]);
+  const fetchList = async () => {
+    const res = await myApi("/student/1/course?pageNum=0&pageSize=10");
+    const list = res.data.data.map((item: any) => ({
+      ...item,
+      key: `${item.id}${item.cno}`
+    }));
+    setList(list);
+  };
+
   useEffect(() => {
-    const fetchList = async () => {
-      const res = await myApi("/student/1/course?pageNum=0&pageSize=10");
-      const list = res.data.data.map((item: any) => ({
-        ...item,
-        key: item.id
-      }));
-      setList(list);
-    };
     fetchList();
   }, []);
 
+  const deleteCourse = async (cno: string) => {
+    const id = 1;
+    const res = await myApi(`/student/${id}/course`, "DELETE", {
+      cno: parseInt(cno)
+    });
+    if (res.code === 0) {
+      fetchList();
+      message.success("退选成功");
+    }
+  };
   const columns = [
     {
       title: "学号",
@@ -52,7 +63,9 @@ const CourseList: FC = () => {
     {
       title: "操作",
       key: "delete",
-      render: (text: string, record: any) => <a>退选</a>
+      render: (text: string, record: any) => (
+        <a onClick={() => deleteCourse(record.cno)}>退选</a>
+      )
     }
   ];
 
@@ -67,17 +80,3 @@ const CourseList: FC = () => {
 };
 
 export default CourseList;
-
-const data = [
-  {
-    id: 4,
-    key: "2",
-    account: "17130130279",
-    sname: "刘奇鑫",
-    cno: 1,
-    cname: "计算机组成",
-    grade: 80.0,
-    sdept: "cs",
-    tname: "李伯成"
-  }
-];

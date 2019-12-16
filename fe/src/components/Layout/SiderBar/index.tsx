@@ -44,7 +44,7 @@ const SiderBar: SFC = () => {
             }
           >
             <Menu.Item key="5">
-              <Link to="/teacher/stulist">学生列表</Link>
+              <Link to="/teacher/courses">所开课程</Link>
             </Menu.Item>
             <Menu.Item key="6">个人信息修改</Menu.Item>
           </SubMenu>

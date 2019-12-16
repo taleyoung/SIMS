@@ -34,7 +34,7 @@ public class TeacherController {
      * pageNum
      * pageSize
      */
-    @RequestMapping(value = "/{id}/stulist",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/stulist",method = RequestMethod.POST)
     public Result findChooseAll(
             @PathVariable String id,
             @RequestParam int pageNum,
