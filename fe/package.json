@@ -55,6 +55,7 @@
     "qiniu-js": "^2.5.3",
     "react": "^16.4.2",
     "react-addons-update": "^15.6.2",
+    "react-cookie": "^4.0.1",
     "react-dom": "^16.4.2",
     "react-redux": "^5.1.0",
     "react-router-dom": "^5.1.2",

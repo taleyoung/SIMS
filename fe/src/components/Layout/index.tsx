@@ -1,4 +1,5 @@
 import React, { ReactNode, SFC } from "react";
+import { withRouter } from "react-router-dom";
 import Header from "./Header";
 import Sider from "./SiderBar";
 
@@ -10,7 +11,8 @@ interface Props {
   children: ReactNode;
 }
 
-const AppLayout: SFC<Props> = ({ children }) => {
+const AppLayout: SFC<Props> = props => {
+  console.log("LAYprops :", props);
   return (
     <Layout>
       <Header></Header>
@@ -20,7 +22,7 @@ const AppLayout: SFC<Props> = ({ children }) => {
         >
           <Sider></Sider>
           <Content style={{ padding: "0 24px", minHeight: 280 }}>
-            {children}
+            {props.children}
           </Content>
         </Layout>
       </Content>
