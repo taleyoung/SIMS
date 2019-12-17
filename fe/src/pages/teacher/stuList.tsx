@@ -1,14 +1,17 @@
 import React, { FC, useState, useEffect } from "react";
 import { Table } from "antd";
+import { useCookies } from "react-cookie";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import myApi from "../../utils/api";
 
 const StuList: FC = props => {
   const [list, setList] = useState<Array<Object>>([]);
+  const [cookie] = useCookies();
+
   const fetchList = async () => {
     const res = await myApi(
-      "/teacher/1/stulist/?pageNum=0&pageSize=10",
+      `/teacher/${cookie.id}/stulist/?pageNum=0&pageSize=10`,
       "POST",
       {
         cno: 1

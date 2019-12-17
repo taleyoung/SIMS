@@ -2,16 +2,22 @@ import React, { FC, useState, useEffect } from "react";
 import { Table } from "antd";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import myApi from "../../utils/api";
 
 const Courses: FC = () => {
   const [list, setList] = useState<Array<Object>>([]);
+  const [cookie] = useCookies();
   const fetchList = async () => {
-    const res = await myApi("/teacher/1/courses?pageNum=0&pageSize=10", "GET", {
-      cno: 1
-    });
+    const res = await myApi(
+      `/teacher/${cookie.id}/courses?pageNum=0&pageSize=10`,
+      "GET",
+      {
+        cno: 1
+      }
+    );
 
     const list = res.data.data.map((item: any) => ({
       ...item,

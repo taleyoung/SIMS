@@ -41,10 +41,12 @@ const SiderBar: SFC = () => {
         </span>
       }
     >
-      <Menu.Item key="5">
+      <Menu.Item key="4">
         <Link to="/teacher/courses">所开课程</Link>
       </Menu.Item>
-      <Menu.Item key="6">个人信息</Menu.Item>
+      <Menu.Item key="5">
+        <Link to="/teacher/info">个人信息</Link>
+      </Menu.Item>
     </SubMenu>
   );
   return (
@@ -52,8 +54,8 @@ const SiderBar: SFC = () => {
       <Sider width={200} style={{ background: "#fff" }}>
         <Menu
           mode="inline"
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
+          defaultSelectedKeys={["1", "4"]}
+          defaultOpenKeys={["sub1", "sub2"]}
           style={{ height: "100%" }}
         >
           {cookie.role === "0" ? StuMenu : TeacherMenu}

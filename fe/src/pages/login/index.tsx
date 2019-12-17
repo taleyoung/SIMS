@@ -34,7 +34,6 @@ const Login: FC<Props & RouteComponentProps> = props => {
       password,
       choice: parseInt(choice)
     });
-    console.log("res", res);
     if (res.code == 0) {
       message.success("登录成功");
       setCookie("role", choice, { path: "/" });

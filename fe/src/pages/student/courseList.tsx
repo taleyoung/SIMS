@@ -1,13 +1,18 @@
 import React, { FC, useState, useEffect } from "react";
 import { Table, message } from "antd";
+import { useCookies } from "react-cookie";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import myApi from "../../utils/api";
 
 const CourseList: FC = () => {
   const [list, setList] = useState<Array<Object>>([]);
+  const [cookie] = useCookies();
+
   const fetchList = async () => {
-    const res = await myApi("/student/1/course?pageNum=0&pageSize=10");
+    const res = await myApi(
+      `/student/${cookie.id}/course?pageNum=0&pageSize=10`
+    );
     const list = res.data.data.map((item: any) => ({
       ...item,
       key: `${item.id}${item.cno}`
@@ -20,8 +25,7 @@ const CourseList: FC = () => {
   }, []);
 
   const deleteCourse = async (cno: string) => {
-    const id = 1;
-    const res = await myApi(`/student/${id}/course`, "DELETE", {
+    const res = await myApi(`/student/${cookie.id}/course`, "DELETE", {
       cno: parseInt(cno)
     });
     if (res.code === 0) {

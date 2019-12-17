@@ -1,11 +1,21 @@
 import React, { SFC } from "react";
 import styled from "styled-components";
+import { withRouter, RouteComponentProps } from "react-router";
 import { useCookies } from "react-cookie";
-import { Layout, Icon, Button } from "antd";
+import { Layout, Icon, Button, Popconfirm } from "antd";
 const { Header: AntHeader } = Layout;
 
-const Header: SFC = () => {
-  const [cookie, setCookie, removeCookie] = useCookies();
+interface Props {
+  history: { push: any };
+}
+const Header: SFC<Props & RouteComponentProps> = props => {
+  const [cookie, , removeCookie] = useCookies();
+  const exit = async () => {
+    Object.keys(cookie).forEach(key => {
+      removeCookie(key, { path: "/" });
+    });
+    props.history.push("/login");
+  };
   return (
     <AntHeader>
       <Wrapper>
@@ -21,14 +31,22 @@ const Header: SFC = () => {
             {cookie.name}
             {cookie.role === "0" ? "同学" : "老师"}
           </div>
-          <Button type="danger">退出</Button>
+          <Popconfirm
+            title="确定要退出登录吗"
+            placement="bottomRight"
+            onConfirm={exit}
+            okText="确认"
+            cancelText="取消"
+          >
+            <Button type="danger">退出 </Button>
+          </Popconfirm>
         </User>
       </Wrapper>
     </AntHeader>
   );
 };
 
-export default Header;
+export default withRouter(Header);
 
 const Wrapper = styled.div`
   display: flex;
