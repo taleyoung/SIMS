@@ -1,5 +1,8 @@
 package com.example.student.VO;
 
+/**
+ * id是学生的id
+ * */
 public class StuCourseInfo {
     private int id;
     private String account;
