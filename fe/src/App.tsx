@@ -7,7 +7,6 @@ import {
   RouteComponentProps
 } from "react-router-dom";
 import Info from "./components/info";
-import Home from "./pages/home";
 import Login from "./pages/login";
 
 import StuList from "./pages/teacher/stuList";
@@ -15,6 +14,8 @@ import Courses from "./pages/teacher/courses";
 
 import NewCourse from "./pages/student/newCourse";
 import CourseList from "./pages/student/courseList";
+import Group from "./pages/student/group";
+import NewGroup from "./pages/student/newGroup";
 
 import AppLayout from "./components/Layout";
 
@@ -29,14 +30,16 @@ const App: SFC<Props & RouteComponentProps> = props => {
   const AppRouters = (
     <Switch>
       <Route exact path="/" render={() => <Redirect to="/login" push />} />
-      <Route path="/app/home" component={Home}></Route>
+
       <Route path="/teacher/:cno/stulist" component={StuList}></Route>
       <Route path="/teacher/courses" component={Courses}></Route>
       <Route path="/teacher/info" component={Info}></Route>
 
       <Route path="/student/courses" component={CourseList}></Route>
       <Route path="/student/newcourse" component={NewCourse}></Route>
+      <Route path="/student/group" component={Group}></Route>
       <Route path="/student/info" component={Info}></Route>
+      <Route path="/student/newgroup" component={NewGroup}></Route>
 
       <Route path="/login" component={Login}></Route>
     </Switch>

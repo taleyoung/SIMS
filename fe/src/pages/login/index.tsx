@@ -21,7 +21,7 @@ const Login: FC<Props & RouteComponentProps> = props => {
   const [password, setPassword] = useState();
   const [choice, setChoice] = useState("0");
 
-  const [cookie, setCookie] = useCookies(["user"]);
+  const [cookie, setCookie, removeCookie] = useCookies();
 
   const login = async () => {
     // const res = await props.fetchLogin({
@@ -34,8 +34,13 @@ const Login: FC<Props & RouteComponentProps> = props => {
       password,
       choice: parseInt(choice)
     });
-    if (res.code == 0) {
+    if (res.message == "请求成功") {
       message.success("登录成功");
+      if (cookie) {
+        Object.keys(cookie).forEach(item => {
+          removeCookie(item, { path: "/" });
+        });
+      }
       setCookie("role", choice, { path: "/" });
       Object.keys(res.data).forEach(item => {
         setCookie(item, res.data[item], { path: "/" });

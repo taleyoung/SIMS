@@ -23,10 +23,15 @@ const SiderBar: SFC = () => {
         <Link to="/student/courses">已选课程</Link>
       </Menu.Item>
       <Menu.Item key="2">
-        <Link to="/student/newcourse">新建选课</Link>
+        <Link to="/student/newcourse">所有课程</Link>
       </Menu.Item>
-
       <Menu.Item key="3">
+        <Link to="/student/group">已加学会</Link>
+      </Menu.Item>
+      <Menu.Item key="4">
+        <Link to="/student/newgroup">学会列表</Link>
+      </Menu.Item>
+      <Menu.Item key="5">
         <Link to="/student/info">个人信息</Link>
       </Menu.Item>
     </SubMenu>
@@ -41,10 +46,10 @@ const SiderBar: SFC = () => {
         </span>
       }
     >
-      <Menu.Item key="4">
+      <Menu.Item key="6">
         <Link to="/teacher/courses">所开课程</Link>
       </Menu.Item>
-      <Menu.Item key="5">
+      <Menu.Item key="7">
         <Link to="/teacher/info">个人信息</Link>
       </Menu.Item>
     </SubMenu>
@@ -54,7 +59,7 @@ const SiderBar: SFC = () => {
       <Sider width={200} style={{ background: "#fff" }}>
         <Menu
           mode="inline"
-          defaultSelectedKeys={["1", "4"]}
+          defaultSelectedKeys={["1", "6"]}
           defaultOpenKeys={["sub1", "sub2"]}
           style={{ height: "100%" }}
         >

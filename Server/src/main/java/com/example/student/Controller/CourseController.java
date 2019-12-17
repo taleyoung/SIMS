@@ -37,7 +37,7 @@ public class CourseController {
      * 显示当前的所有课程
      * 返回加上状态和tname
      * */
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = "/",method = RequestMethod.POST)
     public Result allCourse(@RequestBody StuId stuId,//学生id
                             @RequestParam int pageNum,
                             @RequestParam int pageSize){

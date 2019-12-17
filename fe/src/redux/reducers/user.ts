@@ -1,27 +1,27 @@
-import {AnyAction} from 'redux'
+import { AnyAction } from "redux";
 
-import {User} from '../../types/store'
-import {LOGIN} from '../action-types'
+import { User } from "../../types/store";
+import { LOGIN } from "../action-types";
 
 const initState: User = {
   id: 0,
-  name: 'string',
+  name: "string",
   age: 0,
-  sex: '',
-  account: '',
-  password: '',
-  sdept: ''
-}
+  sex: "",
+  account: "",
+  password: "",
+  sdept: ""
+};
 
 export default function user(state: User = initState, action: AnyAction) {
-  console.log('state,action', state, action)
   switch (action.type) {
     case LOGIN:
-      console.log('jinle', {...state, ...action.payload})
+      console.log("jinle", { ...state, ...action.payload });
       return {
-        ...state, ...action.payload
-      }
+        ...state,
+        ...action.payload
+      };
     default:
-      return state
+      return state;
   }
 }

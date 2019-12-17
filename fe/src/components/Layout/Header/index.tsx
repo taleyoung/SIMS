@@ -11,6 +11,12 @@ interface Props {
 const Header: SFC<Props & RouteComponentProps> = props => {
   const [cookie, , removeCookie] = useCookies();
   const exit = async () => {
+    const res = await new Promise(resolve => {
+      setTimeout(() => {
+        resolve(111);
+      }, 1000);
+    });
+    console.log("res :", res);
     Object.keys(cookie).forEach(key => {
       removeCookie(key, { path: "/" });
     });
@@ -29,7 +35,7 @@ const Header: SFC<Props & RouteComponentProps> = props => {
           <Icon type="user" />
           <div>
             {cookie.name}
-            {cookie.role === "0" ? "同学" : "老师"}
+            {cookie.role === "0" ? "学生" : "老师"}
           </div>
           <Popconfirm
             title="确定要退出登录吗"

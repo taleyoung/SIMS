@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
-import { Table, message } from "antd";
+import { Table, message, Popconfirm } from "antd";
 import { useCookies } from "react-cookie";
 
 import Breadcrumb from "../../components/Breadcrumb";
@@ -7,16 +7,21 @@ import myApi from "../../utils/api";
 
 const CourseList: FC = () => {
   const [list, setList] = useState<Array<Object>>([]);
+  const [loading, setLoading] = useState(true);
   const [cookie] = useCookies();
 
   const fetchList = async () => {
     const res = await myApi(
       `/student/${cookie.id}/course?pageNum=0&pageSize=10`
     );
-    const list = res.data.data.map((item: any) => ({
-      ...item,
-      key: `${item.id}${item.cno}`
-    }));
+
+    const list = res.data
+      ? res.data.data.map((item: any) => ({
+          ...item,
+          key: `${item.id}${item.cno}`
+        }))
+      : [];
+    setLoading(false);
     setList(list);
   };
 
@@ -68,7 +73,15 @@ const CourseList: FC = () => {
       title: "操作",
       key: "delete",
       render: (text: string, record: any) => (
-        <a onClick={() => deleteCourse(record.cno)}>退选</a>
+        <Popconfirm
+          title="确定要退选这门课吗"
+          placement="topRight"
+          onConfirm={() => deleteCourse(record.cno)}
+          okText="确认"
+          cancelText="取消"
+        >
+          <a>退选</a>
+        </Popconfirm>
       )
     }
   ];
@@ -78,7 +91,7 @@ const CourseList: FC = () => {
       <div>
         <Breadcrumb titles={["学生管理", "选课查询"]}></Breadcrumb>
       </div>
-      <Table columns={columns} dataSource={list} />
+      <Table columns={columns} dataSource={list} loading={loading} />
     </div>
   );
 };
