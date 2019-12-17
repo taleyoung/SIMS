@@ -6,6 +6,7 @@ interface Props {
 }
 
 const Breadcrumb: FC<Props> = props => {
+  console.log("props", props);
   return (
     <div>
       <AntBreadcrumb style={{ margin: "16px 0" }}>
