@@ -3,8 +3,6 @@ import { Table, message } from "antd";
 import { useCookies } from "react-cookie";
 import myApi from "../../utils/api";
 
-import Breadcrumb from "../../components/Breadcrumb";
-
 const NewCourse: FC = () => {
   const [list, setList] = useState([]);
   const [cookie] = useCookies();
@@ -68,8 +66,6 @@ const NewCourse: FC = () => {
   ];
   return (
     <div>
-      <Breadcrumb titles={["学生系统", "选课"]}></Breadcrumb>
-
       <Table columns={columns} dataSource={list} loading={loading}></Table>
     </div>
   );

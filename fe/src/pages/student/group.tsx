@@ -1,8 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import { Table } from "antd";
+import dayjs from "dayjs";
 import { useCookies } from "react-cookie";
-
-import Breadcrumb from "../../components/Breadcrumb";
 import myApi from "../../utils/api";
 
 const Group: FC = () => {
@@ -16,7 +15,8 @@ const Group: FC = () => {
     );
     const list = res.data.data.map((item: any) => ({
       ...item,
-      key: `${item.id}`
+      key: `${item.id}`,
+      setdate: dayjs(item.setdate).format("YYYY-MM-DD HH:MM")
     }));
     setLoading(false);
     setList(list);
@@ -51,9 +51,6 @@ const Group: FC = () => {
 
   return (
     <div>
-      <div>
-        <Breadcrumb titles={["学生管理", "已加学会"]}></Breadcrumb>
-      </div>
       <Table columns={columns} dataSource={list} loading={loading} />
     </div>
   );

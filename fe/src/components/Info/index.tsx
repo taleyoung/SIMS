@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 import { useCookies } from "react-cookie";
 import { withRouter, RouteComponentProps } from "react-router";
 import { Descriptions, Modal, Input, message } from "antd";
-import Breadcrumb from "../Breadcrumb";
 import myApi from "../../utils/api";
 
 const { Item } = Descriptions;
@@ -52,9 +51,6 @@ const Info: FC<Props & RouteComponentProps> = props => {
 
   return (
     <div>
-      <div>
-        <Breadcrumb titles={["个人信息"]}></Breadcrumb>
-      </div>
       <Descriptions title="个人信息" bordered column={2}>
         {Object.keys(cookie).map(key => (
           <Item key={key} label={key}>

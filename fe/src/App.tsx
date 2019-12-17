@@ -31,8 +31,8 @@ const App: SFC<Props & RouteComponentProps> = props => {
     <Switch>
       <Route exact path="/" render={() => <Redirect to="/login" push />} />
 
-      <Route path="/teacher/:cno/stulist" component={StuList}></Route>
-      <Route path="/teacher/courses" component={Courses}></Route>
+      <Route path="/teacher/courses/stulist/:cno" component={StuList}></Route>
+      <Route path="/teacher/courses" component={Courses} exact></Route>
       <Route path="/teacher/info" component={Info}></Route>
 
       <Route path="/student/courses" component={CourseList}></Route>

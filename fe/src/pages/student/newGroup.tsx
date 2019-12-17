@@ -1,7 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 import { Table } from "antd";
-
-import Breadcrumb from "../../components/Breadcrumb";
+import dayjs from "dayjs";
 import myApi from "../../utils/api";
 
 const NewGroup: FC = () => {
@@ -12,7 +11,8 @@ const NewGroup: FC = () => {
     const res = await myApi("/group/all?pageNum=0&pageSize=10");
     const list = res.data.data.map((item: any) => ({
       ...item,
-      key: `${item.id}`
+      key: `${item.id}`,
+      setdate: dayjs(item.setdate).format("YYYY-MM-DD HH:MM")
     }));
     setLoading(false);
     setList(list);
@@ -53,9 +53,6 @@ const NewGroup: FC = () => {
 
   return (
     <div>
-      <div>
-        <Breadcrumb titles={["学生管理", "学会列表"]}></Breadcrumb>
-      </div>
       <Table columns={columns} dataSource={list} loading={loading} />
     </div>
   );

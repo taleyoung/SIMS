@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-import Breadcrumb from "../../components/Breadcrumb";
 import myApi from "../../utils/api";
 
 const Courses: FC = () => {
@@ -46,14 +45,13 @@ const Courses: FC = () => {
       key: "handle",
       dataIndex: "handle",
       render: (text: string, record: any) => (
-        <Link to={`/teacher/${record.cno}/stulist`}>查看</Link>
+        <Link to={`/teacher/courses/stulist/${record.cno}`}>查看</Link>
       )
     }
   ];
 
   return (
     <div>
-      <Breadcrumb titles={["学生管理", "所开课程"]}></Breadcrumb>
       <Wrapper>
         <Table columns={columns} dataSource={list} />
       </Wrapper>

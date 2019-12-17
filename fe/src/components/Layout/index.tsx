@@ -1,7 +1,7 @@
 import React, { ReactNode, SFC } from "react";
-import { withRouter } from "react-router-dom";
 import Header from "./Header";
 import Sider from "./SiderBar";
+import Breadcrumb from "../Breadcrumb";
 
 import { Layout } from "antd";
 
@@ -22,11 +22,12 @@ const AppLayout: SFC<Props> = props => {
         >
           <Sider></Sider>
           <Content style={{ padding: "0 24px", minHeight: 280 }}>
+            <Breadcrumb></Breadcrumb>
             {props.children}
           </Content>
         </Layout>
       </Content>
-      <Footer style={{ textAlign: "center" }}>©2018 Design By taleyoung</Footer>
+      <Footer style={{ textAlign: "center" }}>©2019 Design By taleyoung</Footer>
     </Layout>
   );
 };

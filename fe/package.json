@@ -51,6 +51,7 @@
     "@types/styled-components": "^4.4.1",
     "@types/webpack": "^4.39.2",
     "axios": "^0.18.0",
+    "dayjs": "^1.8.17",
     "micromatch": "^4.0.2",
     "qiniu-js": "^2.5.3",
     "react": "^16.4.2",

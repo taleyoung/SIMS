@@ -1,8 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 import { Table, message, Popconfirm } from "antd";
 import { useCookies } from "react-cookie";
-
-import Breadcrumb from "../../components/Breadcrumb";
 import myApi from "../../utils/api";
 
 const CourseList: FC = () => {
@@ -88,9 +86,6 @@ const CourseList: FC = () => {
 
   return (
     <div>
-      <div>
-        <Breadcrumb titles={["学生管理", "选课查询"]}></Breadcrumb>
-      </div>
       <Table columns={columns} dataSource={list} loading={loading} />
     </div>
   );
