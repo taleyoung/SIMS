@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useCookies } from "react-cookie";
 import { Input, Button, Radio, message } from "antd";
+import { RouteComponentProps } from "react-router";
 
 import { connect } from "react-redux";
 import { fetchLogin } from "../../redux/actions/user";
@@ -12,14 +13,15 @@ import myApi from "../../utils/api";
 interface Props {
   user: User;
   fetchLogin: any;
+  history: any;
 }
 
-const Login: FC<Props> = props => {
+const Login: FC<Props & RouteComponentProps> = props => {
   const [account, setAccount] = useState();
   const [password, setPassword] = useState();
   const [choice, setChoice] = useState("0");
 
-  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookie, setCookie] = useCookies(["user"]);
 
   const login = async () => {
     // const res = await props.fetchLogin({
@@ -39,6 +41,8 @@ const Login: FC<Props> = props => {
       Object.keys(res.data).forEach(item => {
         setCookie(item, res.data[item], { path: "/" });
       });
+      const url = choice === "0" ? "/student/courses" : "/teacher/courses";
+      props.history.push(url);
     } else {
       message.warn("登录失败，账号或密码输入错误");
     }

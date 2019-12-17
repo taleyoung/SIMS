@@ -28,7 +28,6 @@ public class LoginController {
         System.out.println("login"+login);
         if (choice == 0) {
             Student student = studentDao.findByAccount(account);
-            System.out.println(student);
             if (student == null) {
                 return new Result(ResultCode.WARN);
             } else {
