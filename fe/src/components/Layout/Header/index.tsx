@@ -14,7 +14,7 @@ const Header: SFC<Props & RouteComponentProps> = props => {
     const res = await new Promise(resolve => {
       setTimeout(() => {
         resolve(111);
-      }, 1000);
+      }, 100);
     });
     console.log("res :", res);
     Object.keys(cookie).forEach(key => {

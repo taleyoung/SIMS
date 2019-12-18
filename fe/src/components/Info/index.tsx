@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { useCookies } from "react-cookie";
 import { withRouter, RouteComponentProps } from "react-router";
 import { Descriptions, Modal, Input, message } from "antd";
+import { infoStr } from "../../utils/constant";
 import myApi from "../../utils/api";
 
 const { Item } = Descriptions;
@@ -53,7 +54,7 @@ const Info: FC<Props & RouteComponentProps> = props => {
     <div>
       <Descriptions title="个人信息" bordered column={2}>
         {Object.keys(cookie).map(key => (
-          <Item key={key} label={key}>
+          <Item key={key} label={infoStr[key]}>
             {key === "password" ? (
               <a onClick={() => setModal(true)}>修改密码</a>
             ) : (

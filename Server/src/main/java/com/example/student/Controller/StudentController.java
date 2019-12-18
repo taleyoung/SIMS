@@ -36,6 +36,9 @@ public class StudentController {
     private CourseDao courseDao;
 
     @Autowired
+    private TeacherDao teacherDao;
+
+    @Autowired
     private StudentGroupDao studentGroupDao;
 
     /**
@@ -86,6 +89,10 @@ public class StudentController {
             stuCourseInfo.setSname(student.getName());
             stuCourseInfo.setCno(list.get(i).getCno());
             stuCourseInfo.setCname(courseDao.findByCno(list.get(i).getCno()).getCname());
+            Course course=courseDao.findByCno(list.get(i).getCno());
+            int tid = course.getTid();
+            Teacher teacher = teacherDao.findById(tid).orElse(null);
+            stuCourseInfo.setTname(teacher.getName());
             stuCourseInfo.setGrade(list.get(i).getGrade());
             liststucourse.add(stuCourseInfo);
         }

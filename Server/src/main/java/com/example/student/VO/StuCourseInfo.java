@@ -9,7 +9,16 @@ public class StuCourseInfo {
     private String sname;
     private int cno;
     private String cname;
+    private String tname;
     private double grade;
+
+    public void setTname(String tname) {
+        this.tname = tname;
+    }
+
+    public String getTname() {
+        return tname;
+    }
 
     public String getCname() {
         return cname;

@@ -1,11 +1,13 @@
 import React, { FC, useState, useEffect } from "react";
-import { Table } from "antd";
+import { Table, message } from "antd";
+import { useCookies } from "react-cookie";
 import dayjs from "dayjs";
 import myApi from "../../utils/api";
 
 const NewGroup: FC = () => {
   const [list, setList] = useState<Array<Object>>([]);
   const [loading, setLoading] = useState(true);
+  const [cookie] = useCookies();
 
   const fetchList = async () => {
     const res = await myApi("/group/all?pageNum=0&pageSize=10");
@@ -21,6 +23,22 @@ const NewGroup: FC = () => {
   useEffect(() => {
     fetchList();
   }, []);
+
+  const addGroup = async (gid: string) => {
+    setLoading(true);
+    const res = await myApi(`/student/${cookie.id}/group`, "POST", {
+      gid: parseInt(gid)
+    });
+    if (res.code === 0) {
+      setLoading(false);
+      if (res.message == "该学会已经选过了") {
+        message.warn("该学会已经选过了");
+        return;
+      }
+      await fetchList();
+      message.success("加入成功");
+    }
+  };
 
   const columns = [
     {
@@ -47,7 +65,9 @@ const NewGroup: FC = () => {
       title: "操作",
       key: "handle",
       dataIndex: "handle",
-      render: (text: string, record: any) => <a>加入</a>
+      render: (text: string, record: any) => (
+        <a onClick={() => addGroup(record.id)}>加入</a>
+      )
     }
   ];
 

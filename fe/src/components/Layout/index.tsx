@@ -27,7 +27,9 @@ const AppLayout: SFC<Props> = props => {
           </Content>
         </Layout>
       </Content>
-      <Footer style={{ textAlign: "center" }}>©2019 Design By taleyoung</Footer>
+      <Footer style={{ textAlign: "center" }}>
+        ❤️ ©2019 Design By taleyoung 🍭
+      </Footer>
     </Layout>
   );
 };
