@@ -4,6 +4,7 @@ import { withRouter, RouteComponentProps } from "react-router";
 import { Descriptions, Modal, Input, message } from "antd";
 import { infoStr } from "../../utils/constant";
 import myApi from "../../utils/api";
+import styled from "styled-components";
 
 const { Item } = Descriptions;
 
@@ -75,11 +76,13 @@ const Info: FC<Props & RouteComponentProps> = props => {
           setModal(false);
         }}
       >
-        <Input.Password
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          placeholder="请输入需要修改的密码"
-        ></Input.Password>
+        <Wrap>
+          <Input.Password
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="请输入需要修改的密码"
+          ></Input.Password>
+        </Wrap>
         <Input.Password
           value={password2}
           onChange={e => setPassword2(e.target.value)}
@@ -91,3 +94,7 @@ const Info: FC<Props & RouteComponentProps> = props => {
 };
 
 export default withRouter(Info);
+
+const Wrap = styled.div`
+  margin-bottom: 20px;
+`;
