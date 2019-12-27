@@ -109,7 +109,7 @@ const Login: FC<Props & RouteComponentProps> = props => {
         </Wrapper>
       </Bg>
       <Footer style={{ textAlign: "center", background: "#fff" }}>
-        ❤️ ©2019 Design By taleyoung 🍭
+        ❤️ ©2019 Design By tengye 🍭
       </Footer>
     </div>
   );
